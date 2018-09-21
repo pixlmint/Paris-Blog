@@ -24,7 +24,7 @@
     <!-- Bootstrap CSS -->
     <link href="Content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="Content/css/sticky-footer.css" rel="stylesheet" />
-<link href="Content/css/mycss.css" rel="stylesheet" />
+    <link href="Content/css/mycss.css" rel="stylesheet" />
     <!--<script src="Content/Scripts/resize.js"></script>-->
     <!--<script>
         $(document).ready(function () {
@@ -74,6 +74,35 @@
                 lastScrollTop = st;
             });
         });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+    <script type='text/javascript'>
+        var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1pJLzT0IvPCncO4QvEsScLSix2IN_atqA25H1ZtWe6Fs/edit?usp=sharing';
+
+        function init() {
+            Tabletop.init({
+                key: publicSpreadsheetUrl,
+                callback: showInfo,
+                simpleSheet: true
+            });
+        }
+
+        function showInfo(data, tabletop) {
+            var html = "";
+            var htmlArchives = $(".list-unstyled").html();
+            for (i = 0; i < data.length; i++) {
+                console.log(data[i].published);
+                if (data[i].published === "TRUE") {
+                    html += "<div id='" + data[i].id + "'><div class='blog-header'><h2>" + data[i].title + "</h2></div><div class='blog-post'><p>" + data[i].main_blog + "</p></div></div>";
+                    htmlArchives += "<li><a href='#" + data[i].id + "'>" + data[i].title + "</a></li>";
+                }
+            }
+            $(".main-blog").html(html);
+            $(".list-unstyled").html(htmlArchives);
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
     </script>
     <style>
         .big-pic {
@@ -134,6 +163,7 @@
                         </p>
                     </div>
                 </div>
+                <div class="main-blog"></div>
             </div>
 
             <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
