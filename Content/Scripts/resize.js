@@ -1,11 +1,12 @@
-﻿$(document).ready(function () {
+﻿var resize = function () {
     var width = innerWidth;
-    console.log(width);
-    if (width < 600){
-        $(".blog-post").css("width", "95% !important");
-        $("main").css("width", "100% !important");
-        //$(".side-navigation-btn").css("display", "block");
-        //$(".side-navigation").html($(".sidebar-module").html());
-        //$(".sidebar-module").html("");
+    if (width < 600) {
+        $("main").css("width", "95% !important");
+        $(".blog-post").addClass("smaller");
+        $(".col-sm-8").addClass("smaller");
+        $(".post").addClass("smaller");
+        $(".side-navigation-btn").css("display", "block");
+        $(".side-navigation").html($(".sidebar-module").html());
+        $(".sidebar-module").html("");
     }
-});
+};

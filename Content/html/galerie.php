@@ -19,6 +19,7 @@
     <link href="../css/sticky-footer.css" rel="stylesheet" />
     <link href="../css/blog.css" rel="stylesheet" />
     <link href="../css/galerie.css" rel="stylesheet" />
+    <link href="../css/mycss.css" rel="stylesheet" />
     <script>
         $(document).ready(function () {
             var elements = $(".hidden").text();
@@ -34,6 +35,42 @@
             });
         });
     </script>
+    <script>
+        var width = innerWidth;
+        if (width < 600) {
+            $(".side-navigation-btn").css("display", "block");
+            $(".side-navigation").html($(".sidebar-module").html());
+            $(".sidebar-module").html("");
+        }
+
+        $(document).ready(function () {
+            var counter = 0;
+
+            $(".side-navigation-btn").click(function () {
+                counter++;
+                if (counter % 2 === 1) {
+                    $(".side-navigation").css("display", "block");
+                    $(".side-navigation-btn").addClass("unmovable");
+                    $(".side-navigation-btn").css("content", "url('Content/img/up.png')");
+                } else {
+                    $(".side-navigation").css("display", "none");
+                    $(".side-navigation-btn").removeClass("unmovable");
+                    $(".side-navigation-btn").css("content", "url('Content/img/down.png')");
+                }
+            });
+
+            var lastScrollTop = 0;
+            $(window).scroll(function (event) {
+                var st = $(this).scrollTop();
+                if (st > lastScrollTop) {
+                    $(".side-navigation-btn").css("position", "absolute");
+                } else {
+                    $(".side-navigation-btn").css("position", "fixed");
+                }
+                lastScrollTop = st;
+            });
+        });
+    </script>
 
     <style>
         .hacked-row {
@@ -42,6 +79,8 @@
     </style>
 </head>
 <body>
+    <div class="side-navigation-btn"></div>
+    <div class="side-navigation"></div>
     <header class="blog-header py-3">
         <div class="container">
             <div class="row align-items-center hacked-row">
@@ -94,7 +133,7 @@
         }
         echo "</div></div>";
 
-        echo "<div class='col-sm-3 blog-sidebar'>";
+        echo "<div class='col-sm-3 blog-sidebar sidebar-module'>";
         foreach($dirs as $dir){
             $dirName = basename($dir);
             echo "<ol class='list-unstyled'>\n<li class='gallery-element " .$dirName . "'>" . $dirName . "</li></ol>";

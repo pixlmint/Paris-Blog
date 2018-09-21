@@ -18,6 +18,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="Content/Scripts/jquery-3.0.0.js"></script>
+    <script src="Content/Scripts/resize.js"></script>
     <!--Carousel-->
     <link href="Content/css/blog.css" rel="stylesheet" />
     <link href="Content/css/carousel.css" rel="stylesheet" />
@@ -25,27 +26,6 @@
     <link href="Content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="Content/css/sticky-footer.css" rel="stylesheet" />
     <link href="Content/css/mycss.css" rel="stylesheet" />
-    <!--<script src="Content/Scripts/resize.js"></script>-->
-    <!--<script>
-        $(document).ready(function () {
-            var displayheight = parseInt($("body").css("height"));
-            var displaywidth = parseInt($("body").css("width"));
-            $(".carousel-inner").css("height", displayheight + "px");
-            //$(".image").css("height",displayheight + "px");
-            $(".image").css("width", displaywidth + "px");
-        });
-    </script>-->
-    <script>
-        $(document).ready(function () {
-            var width = innerWidth;
-            console.log(width);
-            if (width < 600) {
-                $(".blog-post").css("width", "95% !important");
-                $("main").css("width", "100% !important");
-            }
-            $("pre").css("font-family", $("p").css("font-family"));
-        });
-    </script>
     <script>
         $(document).ready(function () {
             var counter = 0;
@@ -84,22 +64,48 @@
             Tabletop.init({
                 key: publicSpreadsheetUrl,
                 callback: showInfo,
-                simpleSheet: true
+                simpleSheet: false
             });
         }
 
         function showInfo(data, tabletop) {
             var html = "";
+            console.log(data);
             var htmlArchives = $(".list-unstyled").html();
-            for (i = 0; i < data.length; i++) {
-                console.log(data[i].published);
-                if (data[i].published === "TRUE") {
-                    html += "<div id='" + data[i].id + "'><div class='blog-header'><h2>" + data[i].title + "</h2></div><div class='blog-post'><p>" + data[i].main_blog + "</p></div></div>";
-                    htmlArchives += "<li><a href='#" + data[i].id + "'>" + data[i].title + "</a></li>";
+            var mysheet = [tabletop.sheets("main"), tabletop.sheets("images")];
+            var main = mysheet[0].elements;
+            var images = mysheet[1].elements;
+            for (i = 0; i < main.length; i++) {
+                if (main[i].published === "TRUE") {
+                    var arr = main[i].main_blog.split(" ");
+                    for (x = 0; x < arr.length; x++) {
+                        if (arr[x] === "img-here") {
+                            var imageToInsert = "";
+                            var descriptionToInsert = "";
+                            for (y = 0; y < images.length; y++) {
+                                if (images[y].id === arr[x + 1]) {
+                                    imageToInsert = images[y].folder + "/" + images[y].name;
+                                    if (images[y].description !== "") {
+                                        descriptionToInsert = "<p class='image-description'>" + images[y].description + "</p>";
+                                    }
+                                }
+                            }
+                            arr[x] = "<img class='blog-image' src='Content/img/" + imageToInsert + "'>";
+                            arr[x + 1] = descriptionToInsert;
+                        }
+                    }
+                    var retString = "";
+                    for (x = 0; x < arr.length; x++) {
+                        retString += arr[x] + " ";
+                    }
+                    html += "<div id='" + main[i].id + "' class='post'><div class='blog-header'><h2>" + main[i].title + "</h2></div><div class='blog-post'><p>" + retString + "</p></div></div>";
+                    htmlArchives += "<li><a href='#" + main[i].id + "'>" + main[i].title + "</a></li>";
                 }
             }
+
             $(".main-blog").html(html);
             $(".list-unstyled").html(htmlArchives);
+            resize();
         }
 
         window.addEventListener('DOMContentLoaded', init);
@@ -122,6 +128,18 @@
 
         .blog-sidebar {
             margin-top: 3rem;
+        }
+
+        .blog-image {
+            width: 100%;
+        }
+
+        .image-description {
+            color: #7A7A7A;
+            font-family: serif !important;
+            font-style: italic;
+            padding-bottom: 3px;
+            margin-top: -20px;
         }
     </style>
 </head>
@@ -151,7 +169,7 @@
     <main>
         <div class="row">
             <div class="col-sm-8">
-                <div id="introduction">
+                <div id="introduction" class="post">
                     <div class="blog-header"><h2>Sur ce Blog</h2></div>
                     <div class="blog-post">
                         <p>
