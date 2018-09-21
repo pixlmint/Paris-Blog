@@ -1,2 +1,26 @@
-﻿body {
+﻿.gallery-page {
+    display: block;
+    max-width: 100%;
+}
+
+.gallery-element:hover {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+img{
+    max-width:100%;
+}
+
+.col-sm-4{
+    margin: 10px !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+main{
+    width: 95%;
 }

@@ -2,12 +2,23 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125439772-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-125439772-1');
+    </script>
     <title>For Testing purposes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <script src="../Scripts/jquery-3.0.0.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
     <link href="../css/navbar.css" rel="stylesheet" />
     <link href="../css/sticky-footer.css" rel="stylesheet" />
     <link href="../css/blog.css" rel="stylesheet" />
-    <link href="../css/bootstrap.min.css" rel="stylesheet" />
-    <script src="../Scripts/jquery-3.0.0.js"></script>
+    <link href="../css/galerie.css" rel="stylesheet" />
     <script>
         $(document).ready(function () {
             var elements = $(".hidden").text();
@@ -23,25 +34,10 @@
             });
         });
     </script>
+
     <style>
-        table {
-            border: solid 2px black;
-        }
-
-        .gallery-element:hover {
-            cursor: pointer;
-        }
-
-        td {
-            border: solid 2px black;
-        }
-
-        .gallery-page {
-            position: absolute;
-        }
-
-        .hidden {
-            display: none;
+        .hacked-row {
+            display: block !important;
         }
     </style>
 </head>
@@ -64,22 +60,9 @@
 
     </header>
     <main>
-         <?php
-
-        echo "<table><tbody><tr>";
+        <?php
         $dirs = array_filter(glob('../img/test2/*'), 'is_dir');
-
-        foreach($dirs as $dir){
-            $dirName = basename($dir);
-            echo "<td><div class='gallery-element " .$dirName . "'>" . $dirName . "</div></td>";
-        }
-        echo "</tr></tbody></table>";
-        echo "<div class='hidden'>";
-        foreach($dirs as $dir){
-            echo basename($dir) . ",";
-        }
-        echo "</div>";
-
+        echo "<div class='row'>\n<div class='col-sm-8'>";
         echo "<div class='gallery'>";
         $counter = 0;
         $rowCounter = 0;
@@ -93,21 +76,35 @@
             }else{
                 echo "style='display:none;'";
             }
-            echo "><table><tbody><tr>";
+            echo "><div class='row'>\n";
             $newArr = [glob($dir . "/*")];
             foreach($newArr as $secondNewArr){
                 foreach($secondNewArr as $newFileName){
-                    echo "<td><img src='". $newFileName . "'></td>";
+                    echo "<div class='col-sm-4'>\n<img src='". $newFileName . "'></div>";
                     $counter++;
                     if($counter === 3){
-                        echo "</tr><tr>";
+                        echo "</div><div class='row'>";
                         $rowCounter++;
                         $counter = 0;
                     }
                 }
             }
-            echo "</tr></tbody></table></div>";
+            echo "</div>\n</div>";
+
         }
+        echo "</div></div>";
+
+        echo "<div class='col-sm-3 blog-sidebar'>";
+        foreach($dirs as $dir){
+            $dirName = basename($dir);
+            echo "<ol class='list-unstyled'>\n<li class='gallery-element " .$dirName . "'>" . $dirName . "</li></ol>";
+        }
+        echo "</div>";
+        echo "<div class='hidden'>";
+        foreach($dirs as $dir){
+            echo basename($dir) . ",";
+        }
+        echo "</div>";
 
         echo "</div>";
         ?>
