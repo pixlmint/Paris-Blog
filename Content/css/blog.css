@@ -1,0 +1,289 @@
+﻿/*My own styles*/
+
+
+/*
+ * Blog posts
+ */
+
+
+.smaller-blog-post {
+    width: 95% !important;
+}
+
+.smaller-main {
+    width: 99% !important;
+}
+
+main{
+    width:80%;
+    margin:0 auto;
+}
+.blog-post {
+    display: block;
+    /*border: solid .5px #e5e5e5;*/
+    border-top: none;
+    border-radius: 5px;
+    margin-bottom: 4rem;
+    width: 70%;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.blog-post-title {
+    margin-bottom: .25rem;
+    font-size: 2.5rem;
+}
+
+.blog-post-meta {
+    margin-bottom: 1.25rem;
+    color: #999;
+}
+
+
+/* stylelint-disable selector-list-comma-newline-after */
+
+.blog-header {
+    line-height: 1;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.blog-header-logo {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: 2.25rem;
+}
+
+    .blog-header-logo:hover {
+        text-decoration: none;
+    }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: PlayfairDisplay-Bold !important;
+}
+
+p {
+    font-family: NotoSerifJP-Medium !important;
+}
+
+.display-4 {
+    font-size: 2.5rem;
+}
+
+@media (min-width: 768px) {
+    .display-4 {
+        font-size: 3rem;
+    }
+}
+
+.nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+}
+
+    .nav-scroller .nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-scroller .nav-link {
+        padding-top: .75rem;
+        padding-bottom: .75rem;
+        font-size: .875rem;
+    }
+
+.card-img-right {
+    height: 100%;
+    border-radius: 0 3px 3px 0;
+}
+
+.flex-auto {
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+.h-250 {
+    height: 250px;
+}
+
+@media (min-width: 768px) {
+    .h-md-250 {
+        height: 250px;
+    }
+}
+
+/*
+ * Blog name and description
+ */
+.blog-title {
+    margin-bottom: 0;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.blog-description {
+    font-size: 1.1rem;
+    color: #999;
+}
+
+@media (min-width: 40em) {
+    .blog-title {
+        font-size: 3.5rem;
+    }
+}
+
+/* Pagination */
+.blog-pagination {
+    margin-bottom: 4rem;
+}
+
+    .blog-pagination > .btn {
+        border-radius: 2rem;
+    }
+
+
+
+/*
+ * Footer
+ */
+.blog-footer {
+    padding: 2.5rem 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e5e5e5;
+}
+
+    .blog-footer p:last-child {
+        margin-bottom: 0;
+    }
+
+
+
+    /*fonts*/
+
+.notoSerifJP-Black {
+    font-family: NotoSerifJP-Black;
+}
+
+.NotoSerifJP-Bold {
+    font-family: NotoSerifJP-Bold;
+}
+
+.NotoSerifJP-ExtraLight {
+    font-family: NotoSerifJP-ExtraLight;
+}
+
+.NotoSerifJP-Light {
+    font-family: NotoSerifJP-Light;
+}
+
+.NotoSerifJP-Medium {
+    font-family: NotoSerifJP-Medium;
+}
+
+.NotoSerifJP-Regular {
+    font-family: NotoSerifJP-Regular;
+}
+
+.NotoSerifJP-SemiBold {
+    font-family: NotoSerifJP-SemiBold;
+}
+
+.PlayfairDisplay-Black {
+    font-family: PlayfairDisplay-Black;
+}
+
+.PlayfairDisplay-BlackItalic {
+    font-family: PlayfairDisplay-BlackItalic;
+}
+
+.PlayfairDisplay-Bold {
+    font-family: PlayfairDisplay-Bold;
+}
+
+.PlayfairDisplay-BoldItalic {
+    font-family: PlayfairDisplay-BoldItalic;
+}
+
+.PlayfairDisplay-Italic {
+    font-family: PlayfairDisplay-Italic;
+}
+
+.PlayfairDisplay-Regular {
+    font-family: PlayfairDisplay-Regular;
+}
+
+@font-face {
+    font-family: NotoSerifJP-Black;
+    src: url(../fonts/Noto_Serif_JP/NotoSerifJP-Black.otf);
+}
+
+@font-face {
+    font-family: NotoSerifJP-Bold;
+    src: url(../fonts/Noto_Serif_JP/NotoSerifJP-Bold.otf);
+}
+
+@font-face {
+    font-family: NotoSerifJP-ExtraLight;
+    src: url(../fonts/Noto_Serif_JP/NotoSerifJP-ExtraLight.otf);
+}
+
+@font-face {
+    font-family: NotoSerifJP-Light;
+    src: url(../fonts/Noto_Serif_JP/NotoSerifJP-Light.otf);
+}
+
+@font-face {
+    font-family: NotoSerifJP-Medium;
+    src: url(../fonts/Noto_Serif_JP/NotoSerifJP-Medium.otf);
+}
+
+@font-face {
+    font-family: NotoSerifJP-Regular;
+    src: url(../fonts/Noto_Serif_JP/NotoSerifJP-Regular.otf);
+}
+
+@font-face {
+    font-family: NotoSerifJP-SemiBold;
+    src: url(../fonts/Noto_Serif_JP/NotoSerifJP-SemiBold.otf);
+}
+
+@font-face {
+    font-family: PlayfairDisplay-Black;
+    src: url(../fonts/Playfair_Display/PlayfairDisplay-Black.ttf);
+}
+
+@font-face {
+    font-family: PlayfairDisplay-BlackItalic;
+    src: url(../fonts/Playfair_Display/PlayfairDisplay-BlackItalic.ttf);
+}
+
+@font-face {
+    font-family: PlayfairDisplay-Bold;
+    src: url(../fonts/Playfair_Display/PlayfairDisplay-Bold.ttf);
+}
+
+@font-face {
+    font-family: PlayfairDisplay-BoldItalic;
+    src: url(../fonts/Playfair_Display/PlayfairDisplay-BoldItalic.ttf);
+}
+
+@font-face {
+    font-family: PlayfairDisplay-Italic;
+    src: url(../fonts/Playfair_Display/PlayfairDisplay-Italic.ttf);
+}
+
+@font-face {
+    font-family: PlayfairDisplay-Regular;
+    src: url(../fonts/Playfair_Display/PlayfairDisplay-Regular.ttf);
+}
