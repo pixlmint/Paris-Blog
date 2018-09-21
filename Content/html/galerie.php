@@ -46,88 +46,25 @@
     </style>
 </head>
 <body>
+    <header class="blog-header py-3">
+        <div class="container">
+            <div class="row align-items-center hacked-row">
+                <div class="centered text-center">
+                    <a class="blog-header-logo text-dark" href="../../index.html">Mon séjours à Paris</a>
+                </div>
+            </div>
+
+            <div class="nav-scroller py-1 mb-2">
+                <nav class="nav d-flex <!--justify-content-between-->">
+                    <a class="p-2 text-muted" href="about-me.html">De Moi</a>
+                    <a class="p-2 text-muted" href="galerie.html">Galerie</a>
+                </nav>
+            </div>
+        </div>
+
+    </header>
     <main>
-        <!--<h4>Lesson 1</h4>
-        §asdfasdfasdfasdf
-        <h4>Lesson 2</h4>
-        <h5>A</h5>-->
-        <?php
-//echo fread (fopen("test.txt", "r"), filesize("test.txt"));
-        ?>
-
-        <h5>B</h5>
-        <?php
-        $dir = "../img/test";
-        // Open a known directory, and proceed to read its contents
-        //if (is_dir($dir))
-        //{
-        //    if ($dh = opendir($dir))
-        //    {
-        //        while (($file = readdir($dh)) !== false)
-        //        {
-        //            echo "filename: $file \n";
-        //        }
-        //        closedir($dh);
-        //    }
-        //}
-        ?>
-        <h5>C</h5>
-        <p>Creating an Array</p>
-        <?php
-        $img_arr = [];
-        $dir = "../img/test";
-        if(is_dir($dir)){
-            if($dh = opendir($dir)){
-                $counter = 0;
-                while(($file = readdir($dh)) !== false){
-                    $img_arr[$counter] = $file;
-                    $counter++;
-                }
-            }
-        }
-        foreach($img_arr as $val){
-            var_dump($val);
-        }
-        ?>
-        <h5>D</h5>
-        <p>Another try</p>
-        <?php
-        $dir = "./";
-        $myArr = scandir($dir);
-        echo "$myArr";
-        ?>
-        <h5>E</h5>
-        <p>Come oon php!</p>
-        <?php
-        $myArr = [];
-        $counter = 0;
-        foreach (glob("../img/test/*.jpg") as $filename) {
-            $myArr[$counter] = $filename;
-            $counter++;
-        }
-        foreach($myArr as $newFile){
-            echo $newFile . "/n";
-        }
-        ?>
-
-        <h4>Lesson 3</h4>
-        <h5>A</h5>
-        <p>Displaying a image, found by php</p>
-        <?php
-        $myImgArr = [];
-        $counter = 0;
-        foreach(glob("../img/test/*.jpg") as $filename){
-            $myImgArr[$counter] = $filename;
-            $counter++;
-        }
-        foreach($myImgArr as $file){
-            //echo "<img src='" . $file . "' width='40'>";
-        }
-        ?>
-        <h5>B</h5>
-        <p>Making a gallery</p>
-
-        <?php
+         <?php
 
         echo "<table><tbody><tr>";
         $dirs = array_filter(glob('../img/test2/*'), 'is_dir');
@@ -135,7 +72,6 @@
         foreach($dirs as $dir){
             $dirName = basename($dir);
             echo "<td><div class='gallery-element " .$dirName . "'>" . $dirName . "</div></td>";
-            //echo "<script>\n$(document).ready(function({\n$('." . $dirName . "').click(function({\n$('.gallery-page." . $dirName . "').css('display','block');\n});\n});\n</script>";
         }
         echo "</tr></tbody></table>";
         echo "<div class='hidden'>";
