@@ -72,9 +72,11 @@
             var html = "";
             console.log(data);
             var htmlArchives = $(".list-unstyled").html();
-            var mysheet = [tabletop.sheets("main"), tabletop.sheets("images")];
+            var mysheet = [tabletop.sheets("main"), tabletop.sheets("images"), tabletop.sheets("zeichen"), tabletop.sheets("ersatz")];
             var main = mysheet[0].elements;
             var images = mysheet[1].elements;
+            var zeichen = mysheet[2].elements;
+            var ersatz = mysheet[3].elements;
             for (i = 0; i < main.length; i++) {
                 if (main[i].published === "TRUE") {
                     var arr = main[i].main_blog.split(" ");
@@ -92,6 +94,13 @@
                             }
                             arr[x] = "<img class='blog-image' src='Content/img/" + imageToInsert + "'>";
                             arr[x + 1] = descriptionToInsert;
+                        } else {
+                            for (c = 0; c < zeichen.length; c++) {
+                                if (arr[x] === zeichen[c].settings) {
+                                    console.log(zeichen[c]);
+                                    arr[x] = zeichen[c + 1].settings;
+                                }
+                            }
                         }
                     }
                     var retString = "";
@@ -109,6 +118,10 @@
         }
 
         window.addEventListener('DOMContentLoaded', init);
+
+        function getSetting(arr, int) {
+            return arr[int];
+        }
     </script>
     <style>
         .big-pic {

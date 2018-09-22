@@ -11,7 +11,7 @@
 
         gtag('config', 'UA-125439772-1');
     </script>
-    <title>For Testing purposes</title>
+    <title>Galerie</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <script src="../Scripts/jquery-3.0.0.js"></script>
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
