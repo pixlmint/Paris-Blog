@@ -100,36 +100,40 @@
     </header>
     <main>
         <?php
-        $dirs = array_filter(glob('../img/test2/*'), 'is_dir');
+        $dirs = array_filter(glob('../img/*'), 'is_dir');
         echo "<div class='row'>\n<div class='col-sm-8'>";
         echo "<div class='gallery'>";
         $counter = 0;
         $rowCounter = 0;
         $firstCounter = 0;
         foreach($dirs as $dir){
-            $dirName = basename($dir);
-            echo "<div class='gallery-page " . $dirName . "' ";
-            if($firstCounter === 0){
-                echo "style='display:block;'";
-                $firstCounter = 1;
+            if($dir === "test" || $dir === "test2"){
+                
             }else{
-                echo "style='display:none;'";
-            }
-            echo "><div class='row'>\n";
-            $newArr = [glob($dir . "/*")];
-            foreach($newArr as $secondNewArr){
-                foreach($secondNewArr as $newFileName){
-                    echo "<div class='col-sm-4'>\n<img src='". $newFileName . "'></div>";
-                    $counter++;
-                    if($counter === 3){
-                        echo "</div><div class='row'>";
-                        $rowCounter++;
-                        $counter = 0;
+                $dirName = basename($dir);
+                echo "<div class='gallery-page " . $dirName . "' ";
+                if($firstCounter === 0){
+                    echo "style='display:block;'";
+                    $firstCounter = 1;
+                }else{
+                    echo "style='display:none;'";
+                }
+                echo "><div class='row'>\n";
+                $newArr = [glob($dir . "/*")];
+                foreach($newArr as $secondNewArr){
+                    foreach($secondNewArr as $newFileName){
+                        echo "<div class='col-sm-4'>\n<img src='". $newFileName . "'></div>";
+                        $counter++;
+                        if($counter === 3){
+                            echo "</div><div class='row'>";
+                            $rowCounter++;
+                            $counter = 0;
+                        }
                     }
                 }
-            }
-            echo "</div>\n</div>";
+                echo "</div>\n</div>";
 
+            }
         }
         echo "</div></div>";
 

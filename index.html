@@ -59,7 +59,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
     <script type='text/javascript'>
         var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1pJLzT0IvPCncO4QvEsScLSix2IN_atqA25H1ZtWe6Fs/edit?usp=sharing';
-
+        resize();
         function init() {
             Tabletop.init({
                 key: publicSpreadsheetUrl,
@@ -74,6 +74,7 @@
             var htmlArchives = $(".list-unstyled").html();
             var mysheet = [tabletop.sheets("main"), tabletop.sheets("images"), tabletop.sheets("zeichen"), tabletop.sheets("ersatz")];
             var main = mysheet[0].elements;
+            main.reverse();
             var images = mysheet[1].elements;
             var zeichen = mysheet[2].elements;
             var ersatz = mysheet[3].elements;
@@ -94,19 +95,26 @@
                             }
                             arr[x] = "<img class='blog-image' src='Content/img/" + imageToInsert + "'>";
                             arr[x + 1] = descriptionToInsert;
-                        } else {
-                            for (c = 0; c < zeichen.length; c++) {
-                                if (arr[x] === zeichen[c].settings) {
-                                    console.log(zeichen[c]);
-                                    arr[x] = zeichen[c + 1].settings;
-                                }
-                            }
                         }
+// else {
+                         //   for (c = 0; c < zeichen.length; c++) {
+                             //   if (arr[x] === zeichen[c].settings) {
+                              //      console.log(zeichen[c]);
+                            //        arr[x] = zeichen[c + 1].settings;
+                         //       }
+                       //     }
+                   //     }
                     }
                     var retString = "";
                     for (x = 0; x < arr.length; x++) {
                         retString += arr[x] + " ";
                     }
+//if(!main[i].main-post-id){
+
+//}else{
+//var temp = $("'#" + main[i].main-post-id + "').html();
+
+//}
                     html += "<div id='" + main[i].id + "' class='post'><div class='blog-header'><h2>" + main[i].title + "</h2></div><div class='blog-post'><p>" + retString + "</p></div></div>";
                     htmlArchives += "<li><a href='#" + main[i].id + "'>" + main[i].title + "</a></li>";
                 }
@@ -154,6 +162,14 @@
             padding-bottom: 3px;
             margin-top: -20px;
         }
+
+        i.ts{
+            color:grey;
+            font-size: larger;
+        }
+.subpost{
+margin-left: 20px;
+}
     </style>
 </head>
 <body>
