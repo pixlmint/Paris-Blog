@@ -26,10 +26,11 @@
             var array = elements.split(',');
             $(".gallery-element").click(function () {
                 for (i = 0; i < array.length; i++) {
-                    if ($(this).hasClass(array[i])) {
-                        $(".gallery-page." + array[i]).css("display", "block");
-                    } else {
-                        $(".gallery-page." + array[i]).css("display", "none");
+                        if ($(this).hasClass(array[i])) {
+                            $(".gallery_page." + array[i]).css("display", "block");
+                        } else {
+                            $(".gallery_page." + array[i]).css("display", "none");
+                        
                     }
                 }
             });
@@ -108,10 +109,10 @@
         $firstCounter = 0;
         foreach($dirs as $dir){
             if($dir === "test" || $dir === "test2"){
-                
+
             }else{
                 $dirName = basename($dir);
-                echo "<div class='gallery-page " . $dirName . "' ";
+                echo "<div class='gallery_page " . $dirName . "' ";
                 if($firstCounter === 0){
                     echo "style='display:block;'";
                     $firstCounter = 1;
