@@ -21,20 +21,10 @@
     <link href="../css/galerie.css" rel="stylesheet" />
     <link href="../css/mycss.css" rel="stylesheet" />
     <script>
-        $(document).ready(function () {
-            var elements = $(".hidden").text();
-            var array = elements.split(',');
-            $(".gallery-element").click(function () {
-                for (i = 0; i < array.length; i++) {
-                        if ($(this).hasClass(array[i])) {
-                            $(".gallery_page." + array[i]).css("display", "block");
-                        } else {
-                            $(".gallery_page." + array[i]).css("display", "none");
-                        
-                    }
-                }
-            });
-        });
+	function toggleGalleryPage(page) {
+	    $('.gallery_page').css('display', 'none');
+	    $('#' + page).css('display', 'block');
+	}
     </script>
     <script>
         var width = innerWidth;
@@ -136,7 +126,7 @@
         echo "<div class='col-sm-3 blog-sidebar sidebar-module'>";
         foreach($dirs as $dir){
             $dirName = basename($dir);
-            echo "<ol class='list-unstyled'>\n<li class='gallery-element' id='" . str_replace('.', '_', $dirName) . "'>" . $dirName . "</li></ol>";
+            echo "<ol class='list-unstyled'>\n<li onclick='toggleGalleryPage($(this).attr(\'id\'))' class='gallery-element' id='" . str_replace('.', '_', $dirName) . "'>" . $dirName . "</li></ol>";
         }
         echo "</div>";
         echo "<div class='hidden'>";
