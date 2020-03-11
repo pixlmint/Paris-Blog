@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block additionalJavascript %}
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+    <script type='text/javascript'>
+        var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1pJLzT0IvPCncO4QvEsScLSix2IN_atqA25H1ZtWe6Fs/edit?usp=sharing';
+        resize();
+
+        function init() {
+            Tabletop.init({
+                key: publicSpreadsheetUrl,
+                callback: showInfo,
+                simpleSheet: false
+            });
+        }
+
+        function showInfo(data, tabletop) {
+            var html = "";
+            console.log(data);
+            var htmlArchives = $(".list-unstyled").html();
+            var mysheet = [tabletop.sheets("main"), tabletop.sheets("images"), tabletop.sheets("zeichen"), tabletop.sheets("ersatz")];
+            var main = mysheet[0].elements;
+            main.reverse();
+            var images = mysheet[1].elements;
+            var zeichen = mysheet[2].elements;
+            var ersatz = mysheet[3].elements;
+            for (i = 0; i < main.length; i++) {
+                if (main[i].published === "TRUE") {
+                    var arr = main[i].main_blog.split(" ");
+                    for (x = 0; x < arr.length; x++) {
+                        if (arr[x] === "img-here") {
+                            var imageToInsert = "";
+                            var descriptionToInsert = "";
+                            for (y = 0; y < images.length; y++) {
+                                if (images[y].id === arr[x + 1]) {
+                                    imageToInsert = images[y].folder + "/" + images[y].name;
+                                    if (images[y].description !== "") {
+                                        descriptionToInsert = "<p class='image-description'>" + images[y].description + "</p>";
+                                    }
+                                }
+                            }
+                            arr[x] = "<img class='blog-image' src='Content/img/" + imageToInsert + "'>";
+                            arr[x + 1] = descriptionToInsert;
+                        }
+                    }
+                    var retString = "";
+                    for (x = 0; x < arr.length; x++) {
+                        retString += arr[x] + " ";
+                    }
+                    html += "<div id='" + main[i].id + "' class='post'><div class='blog-header'><h2>" + main[i].title + "</h2></div><div class='blog-post'><p>" + retString + "</p></div></div>";
+                    htmlArchives += "<li><a href='#" + main[i].id + "'>" + main[i].title + "</a></li>";
+                }
+            }
+
+            $(".main-blog").html(html);
+            $(".list-unstyled").html(htmlArchives);
+            resize();
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+
+        function getSetting(arr, int) {
+            return arr[int];
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-8">
+        <div id="introduction" class="post">
+            <div class="blog-header"><h2>Sur ce Blog</h2></div>
+            <div class="blog-post">
+                <p>
+                    Bonjour sur mon site internet ou je vais écrire de mon séjours à Paris.<br />
+                    Je m'appelle Christian et je suis un étudiante informatique et j'habite en suisse.<br />
+                    J'aime faire de la photographie, speciallement de la photographie de rue. Alors j'espère que je vais avoir beacoup des chances de prendre des memories sur mon carte SD.<br />
+                    Je sais que beacoup de parisiens et parisiennes n'aiment pas d'être photographié, mais quelle bonne occasion d'entrer en conversation.<br />
+                    J'espère que vous aimerez lire mon blog.
+                </p>
+            </div>
+        </div>
+        <div class="main-blog"></div>
+    </div>
+
+    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+        <div class="sidebar-module">
+            <h4>Archives</h4>
+            <ol class="list-unstyled">
+                <li><a href="#introduction">Sur ce Blog</a></li>
+
+            </ol>
+        </div>
+    </div><!-- /.blog-sidebar -->
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-8">
+        {% block galleryPage %}
+            Bitte wählen Sie eine Unterseite
+        {% endblock %}
+    </div>
+    <div class="col-sm-4">
+        <div class='col-sm-3 blog-sidebar sidebar-module'>
+            {% for page in pages %}
+                <a href="/gallery/{{ page }}">{{ date(page)|date('d.m.Y') }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

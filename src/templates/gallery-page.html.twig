@@ -1,0 +1,10 @@
+{% extends 'gallery.html.twig' %}
+
+{% block galleryPage %}
+    <link href="/assets/css/galerie.css" rel="stylesheet">
+    <div class="gallery">
+        {% for image in files %}
+                <img src="/{{ image }}">
+        {% endfor %}
+    </div>
+{% endblock %}
