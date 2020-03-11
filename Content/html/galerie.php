@@ -108,11 +108,8 @@
         $rowCounter = 0;
         $firstCounter = 0;
         foreach($dirs as $dir){
-            if($dir === "test" || $dir === "test2"){
-
-            }else{
-                $dirName = basename($dir);
-                echo "<div class='gallery_page " . $dirName . "' ";
+        	$dirName = basename($dir);
+                echo "<div class='gallery_page' id='" . str_replace('.', '_', $dirName) . "' ";
                 if($firstCounter === 0){
                     echo "style='display:block;'";
                     $firstCounter = 1;
@@ -133,15 +130,13 @@
                     }
                 }
                 echo "</div>\n</div>";
-
-            }
         }
         echo "</div></div>";
 
         echo "<div class='col-sm-3 blog-sidebar sidebar-module'>";
         foreach($dirs as $dir){
             $dirName = basename($dir);
-            echo "<ol class='list-unstyled'>\n<li class='gallery-element " .$dirName . "'>" . $dirName . "</li></ol>";
+            echo "<ol class='list-unstyled'>\n<li class='gallery-element' id='" . str_replace('.', '_', $dirName) . "'>" . $dirName . "</li></ol>";
         }
         echo "</div>";
         echo "<div class='hidden'>";
