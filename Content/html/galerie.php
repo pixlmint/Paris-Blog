@@ -126,7 +126,7 @@
         echo "<div class='col-sm-3 blog-sidebar sidebar-module'>";
         foreach($dirs as $dir){
             $dirName = basename($dir);
-            echo "<ol class='list-unstyled'>\n<li onclick='toggleGalleryPage($(this).attr(\'id\'))' class='gallery-element' id='" . str_replace('.', '_', $dirName) . "'>" . $dirName . "</li></ol>";
+            echo "<ol class='list-unstyled'>\n<li onclick='toggleGalleryPage($(this).attr(\"id\"))' class='gallery-element' id='" . str_replace('.', '_', $dirName) . "'>" . $dirName . "</li></ol>";
         }
         echo "</div>";
         echo "<div class='hidden'>";
