@@ -1,96 +1,385 @@
 {% extends 'base.html.twig' %}
 
-{% block additionalJavascript %}
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
-    <script type='text/javascript'>
-        var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1pJLzT0IvPCncO4QvEsScLSix2IN_atqA25H1ZtWe6Fs/edit?usp=sharing';
-        resize();
+{#{% block additionalJavascript %}#}
+{#    <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>#}
+{#    <script type='text/javascript'>#}
+{#        var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1pJLzT0IvPCncO4QvEsScLSix2IN_atqA25H1ZtWe6Fs/edit?usp=sharing';#}
+{#        resize();#}
 
-        function init() {
-            Tabletop.init({
-                key: publicSpreadsheetUrl,
-                callback: showInfo,
-                simpleSheet: false
-            });
-        }
+{#        function init() {#}
+{#            Tabletop.init({#}
+{#                key: publicSpreadsheetUrl,#}
+{#                callback: showInfo,#}
+{#                simpleSheet: false#}
+{#            });#}
+{#        }#}
 
-        function showInfo(data, tabletop) {
-            var html = "";
-            console.log(data);
-            var htmlArchives = $(".list-unstyled").html();
-            var mysheet = [tabletop.sheets("main"), tabletop.sheets("images"), tabletop.sheets("zeichen"), tabletop.sheets("ersatz")];
-            var main = mysheet[0].elements;
-            main.reverse();
-            var images = mysheet[1].elements;
-            var zeichen = mysheet[2].elements;
-            var ersatz = mysheet[3].elements;
-            for (i = 0; i < main.length; i++) {
-                if (main[i].published === "TRUE") {
-                    var arr = main[i].main_blog.split(" ");
-                    for (x = 0; x < arr.length; x++) {
-                        if (arr[x] === "img-here") {
-                            var imageToInsert = "";
-                            var descriptionToInsert = "";
-                            for (y = 0; y < images.length; y++) {
-                                if (images[y].id === arr[x + 1]) {
-                                    imageToInsert = images[y].folder + "/" + images[y].name;
-                                    if (images[y].description !== "") {
-                                        descriptionToInsert = "<p class='image-description'>" + images[y].description + "</p>";
-                                    }
-                                }
-                            }
-                            arr[x] = "<img class='blog-image' src='/assets/img/" + imageToInsert + "'>";
-                            arr[x + 1] = descriptionToInsert;
-                        }
-                    }
-                    var retString = "";
-                    for (x = 0; x < arr.length; x++) {
-                        retString += arr[x] + " ";
-                    }
-                    html += "<div id='" + main[i].id + "' class='post'><div class='blog-header'><h2>" + main[i].title + "</h2></div><div class='blog-post'><p>" + retString + "</p></div></div>";
-                    htmlArchives += "<li><a href='#" + main[i].id + "'>" + main[i].title + "</a></li>";
-                }
-            }
+{#        function showInfo(data, tabletop) {#}
+{#            var html = "";#}
+{#            console.log(data);#}
+{#            var htmlArchives = $(".list-unstyled").html();#}
+{#            var mysheet = [tabletop.sheets("main"), tabletop.sheets("images"), tabletop.sheets("zeichen"), tabletop.sheets("ersatz")];#}
+{#            var main = mysheet[0].elements;#}
+{#            main.reverse();#}
+{#            var images = mysheet[1].elements;#}
+{#            var zeichen = mysheet[2].elements;#}
+{#            var ersatz = mysheet[3].elements;#}
+{#            for (i = 0; i < main.length; i++) {#}
+{#                if (main[i].published === "TRUE") {#}
+{#                    var arr = main[i].main_blog.split(" ");#}
+{#                    for (x = 0; x < arr.length; x++) {#}
+{#                        if (arr[x] === "img-here") {#}
+{#                            var imageToInsert = "";#}
+{#                            var descriptionToInsert = "";#}
+{#                            for (y = 0; y < images.length; y++) {#}
+{#                                if (images[y].id === arr[x + 1]) {#}
+{#                                    imageToInsert = images[y].folder + "/" + images[y].name;#}
+{#                                    if (images[y].description !== "") {#}
+{#                                        descriptionToInsert = "<p class='image-description'>" + images[y].description + "</p>";#}
+{#                                    }#}
+{#                                }#}
+{#                            }#}
+{#                            arr[x] = "<img class='blog-image' src='/assets/img/" + imageToInsert + "'>";#}
+{#                            arr[x + 1] = descriptionToInsert;#}
+{#                        }#}
+{#                    }#}
+{#                    var retString = "";#}
+{#                    for (x = 0; x < arr.length; x++) {#}
+{#                        retString += arr[x] + " ";#}
+{#                    }#}
+{#                    html += "<div id='" + main[i].id + "' class='post'><div class='blog-header'><h2>" + main[i].title + "</h2></div><div class='blog-post'><p>" + retString + "</p></div></div>";#}
+{#                    htmlArchives += "<li><a href='#" + main[i].id + "'>" + main[i].title + "</a></li>";#}
+{#                }#}
+{#            }#}
 
-            $(".main-blog").html(html);
-            $(".list-unstyled").html(htmlArchives);
-            resize();
-        }
+{#            $(".main-blog").html(html);#}
+{#            $(".list-unstyled").html(htmlArchives);#}
+{#            resize();#}
+{#        }#}
 
-        window.addEventListener('DOMContentLoaded', init);
+{#        window.addEventListener('DOMContentLoaded', init);#}
 
-        function getSetting(arr, int) {
-            return arr[int];
-        }
-    </script>
-{% endblock %}
+{#        function getSetting(arr, int) {#}
+{#            return arr[int];#}
+{#        }#}
+{#    </script>#}
+{#{% endblock %}#}
 
 {% block body %}
-<div class="row">
-    <div class="col-sm-8">
-        <div id="introduction" class="post">
-            <div class="blog-header"><h2>Sur ce Blog</h2></div>
-            <div class="blog-post">
-                <p>
-                    Bonjour sur mon site internet ou je vais écrire de mon séjours à Paris.<br />
-                    Je m'appelle Christian et je suis un étudiante informatique et j'habite en suisse.<br />
-                    J'aime faire de la photographie, speciallement de la photographie de rue. Alors j'espère que je vais avoir beacoup des chances de prendre des memories sur mon carte SD.<br />
-                    Je sais que beacoup de parisiens et parisiennes n'aiment pas d'être photographié, mais quelle bonne occasion d'entrer en conversation.<br />
-                    J'espère que vous aimerez lire mon blog.
-                </p>
+    <div class="row">
+        <div class="col-sm-8">
+            <div id="introduction" class="post">
+                <div class="blog-header"><h2>Sur ce Blog</h2></div>
+                <div class="blog-post">
+                    <p>
+                        Bonjour sur mon site internet ou je vais écrire de mon séjours à Paris.<br>
+                        Je m'appelle Christian et je suis un étudiante informatique et j'habite en suisse.<br>
+                        J'aime faire de la photographie, speciallement de la
+                        photographie de rue. Alors j'espère que je vais avoir beacoup des
+                        chances de prendre des memories sur mon carte SD.<br>
+                        Je sais que beacoup de parisiens et parisiennes
+                        n'aiment pas d'être photographié, mais quelle bonne occasion d'entrer en
+                        conversation.<br>
+                        J'espère que vous aimerez lire mon blog.
+                    </p>
+                </div>
+            </div>
+            <div class="main-blog">
+                <div id="22" class="post">
+                    <div class="blog-header"><h2>12.10.18.: Mon dernier jour</h2></div>
+                    <div class="blog-post"><p>C'est
+                            mon dernier jour à l'école d'une part je suis heureux parce que c'est
+                            dur de parler français tous le jour, mais d'autre part les autres
+                            étudiants et l'école vont me manquer. Aussi, j'ai beaucoup des
+                            responsabilités en suisse et ici ma seul vrai responsabilité est de
+                            parler et apprendre le français. </p></div>
+                </div>
+                <div id="21" class="post">
+                    <div class="blog-header"><h2>11.10.18</h2></div>
+                    <div class="blog-post"><p>Parce que je dois regarder mon budget un peu plus nous sommes allés manger
+                            des
+                            Hotdogs pour 6€. <br><br>Moi et des amis sont allés au Musée de l'armée qui était très
+                            intéressant. <img class="blog-image" src="/assets/img/2018-10-11/DSCF5421_Lredit.jpg"></p></div>
+                </div>
+                <div id="20" class="post">
+                    <div class="blog-header"><h2>10.10.18</h2></div>
+                    <div class="blog-post"><p>Je
+                            suis dans la métro pour aller à l'école et à la station Opéra il y
+                            avait des touristes asiatique qui pensaient que la métro est un lieu
+                            bien pour prendre des photos. Je comprends quand tu veux des images avec
+                            la tour Eiffel ou le Louvre, mais la métro ? <br><br>Après le repas
+                            nous sommes allés au Montmartre, dans une zone pas connu par les
+                            touristes. C'était très joli mais malheureusement j'étais trop fatigué
+                            pour prendre beacoup des images. <img class="blog-image"
+                                                                  src="/assets/img/2018-10-10/DSCF5383_Lredit.jpg"></p>
+                        <p class="image-description">Une rue jolie</p> <img class="blog-image"
+                                                                            src="/assets/img/2018-10-10/DSCF5354_Lredit.jpg">
+                        <p class="image-description">La métro</p>
+                        <p></p></div>
+                </div>
+                <div id="19" class="post">
+                    <div class="blog-header"><h2>9.10.18.: Google Pixel 3</h2></div>
+                    <div class="blog-post"><p>Je
+                            n'ai pas dormi bien ce nuit alors je suis retourné à la maison. Aussi,
+                            c'était la présentation de Google de leur nouveau Google Pixel, alors
+                            j'ai regardé ça. J'avais un autre burger pour le déjeuner. C'était un
+                            peu plus cher mais très bien et aussi biologique. </p></div>
+                </div>
+                <div id="18" class="post">
+                    <div class="blog-header"><h2>8.10.18.: Troisième et dernière semaine</h2></div>
+                    <div class="blog-post"><p>J'ai
+                            beaucoup du faim aujourd'hui alors il faut choisir où je prends mon
+                            repas ce midi. J'ai choisi un Deli, prêt de mon école, et j'ai mangé le
+                            "Crazy" (Je n'ai pas un image)<br>Suis-je dans le ciel? C'était le
+                            meilleur burger de ma vie! Peut-être je dis ça seulement parce que
+                            j'avais beacoup du faim mais le burger m'a goûté absolument délicieux !<br><br><i>16:35</i>Je
+                            suis allés à Belleville (un quartier de Paris) parce j'ai lu que c'est
+                            très jolie. Alors j'ai conduit l'à avec un trottinette électronique
+                            (oui, je les aime) et après 30 minutes conduire et j'ai trouvé que j'ai
+                            oublié ma carte SD pour ma Camera !!! Mais j'ai acheté une neveau et
+                            j'ai pris des photos. Il y avait beaucoup des graffiti: <img class="blog-image"
+                                                                                         src="/assets/img/2018-10-08/DSCF5259_Lredit.jpg">
+                        </p>
+                        <p class="image-description">Rue Denoyez</p> <img class="blog-image"
+                                                                          src="/assets/img/2018-10-08/DSCF5261_Lredit.jpg">
+                        <p class="image-description">From Paris with Love</p> <img class="blog-image"
+                                                                                   src="/assets/img/2018-10-08/DSCF5270_Lredit.jpg">
+                        <p></p></div>
+                </div>
+                <div id="17" class="post">
+                    <div class="blog-header"><h2>7.10.18</h2></div>
+                    <div class="blog-post"><p>C'était
+                            un jour très paresseux. A 3 heures le matin je suis sors pour voir la
+                            ville et je suis allés aux les Halles parce je besoin des nouveau
+                            chaussures. J'ai pris le trottinette électronique tous le jours - ils
+                            sont super! </p></div>
+                </div>
+                <div id="16" class="post">
+                    <div class="blog-header"><h2>6.10.18.: Les trottinettes et la nuit blanche</h2></div>
+                    <div class="blog-post"><p>C'est
+                            le week-end alors je me suis bien reposé. Le midi j'ai sorti pour voir
+                            la ville et prendre des images. Aussi, j'ai essayé les trottinettes
+                            électronique et c'était incroyablement cool. Je les aime et je suis très
+                            désolé pour mes amies de ne pas étaient capable de les essayer.<br></p><h6>La nuit
+                            blanche</h6>
+                        Aujourd'hui
+                        c'est la nuit blanche à Paris alors tout les musées sont ouvert et
+                        libre et il y a des musiciens sur les rues et différentes pièces d'art. <p></p></div>
+                </div>
+                <div id="15" class="post">
+                    <div class="blog-header"><h2>5.10.18</h2></div>
+                    <div class="blog-post"><p><i class="ts">08:37</i>Le
+                            plan pour est dire aujourd'hui à trois de mes amies et après aller dans
+                            la ville avec un autre étudiant qui est aussi suisse. J'espère que je
+                            vais parler plus français avec il la semaine prochaine.<br>Parce que,
+                            apparemment je suis un Lappen pour ne pas connaître pas les "Croque
+                            Monsieu", nous sommes allés les essayer. C'était bien mais pas
+                            délicieux. <br><br>Aprés j'ai dit aurovoir à mes amies moi et un autro copain sont allés
+                            visiter
+                            "Les Halles". <img class="blog-image" src="/assets/img/2018-10-05/DSCF4968_Lredit.jpg"> C'est un
+                            supermarché gigantique mais c'est un peu plus chèr pour mon porte-monnaie. </p></div>
+                </div>
+                <div id="14" class="post">
+                    <div class="blog-header"><h2>4.10.18</h2></div>
+                    <div class="blog-post"><p>Des
+                            amis et moi sommes allés dans une marché pour prendre le déjeuner. Il y
+                            avait beacoup des magasins pour acheter de la nourriture. Moi, j'ai
+                            mangé dans un restaurant italien, de la lasagne épinards
+                            et c'était très bien. Il y avait aussi beaucoup de poissons et autre fruits de mer mais je
+                            ne
+                            les aime pas.<br><br><i class="ts">19:21</i>Parce
+                            que ça c'est le dernier jour de mes amies nous allons manger et après
+                            on va aller dans une bar avec des autres amis. C'est un domage qu'elles
+                            vont partir et elles me vont manquer mais c'étaient deux semaines très
+                            bien. </p></div>
+                </div>
+                <div id="13" class="post">
+                    <div class="blog-header"><h2>3.10.18</h2></div>
+                    <div class="blog-post"><p><i class="ts">08:42</i>Tous les jours je suis allé à l'école avec mes amis
+                            mais je suppose qu'elles sont en retard aujourd'hui <br> <img class="blog-image"
+                                                                                          src="/assets/img/2018-10-03/IMG_20181003_123914_1.jpg">
+                            J'ai mangé chez une restaurant qui s'appelle "PeGast". Il y a des
+                            sandwichs et salades et c'était très bien, spécialement le dessert était
+                            délicieux. <br><i class="ts">14:00</i>Nous sommes dans la métro pour aller visiter la Centre
+                            Pompidou pour une exposition des photos. </p></div>
+                </div>
+                <div id="12" class="post">
+                    <div class="blog-header"><h2>2.10.18</h2></div>
+                    <div class="blog-post"><p><img class="blog-image" src="/assets/img/2018-10-02/kebab.png"></p>
+                        <p class="image-description">Malheureusement
+                            mon portable n'a eu pas du batterie pour prendre un image de la
+                            nourriture d'aujourd'hui, mais nous avons mangé kebab alors ce n'était
+                            pas spécial.</p> <br>Aujourd'hui nous sommes allés dans un quartier qui s'appelle "La
+                        Chappelle". <img class="blog-image" src="/assets/img/2018-10-02/DSCF4630_Lredit.jpg">
+                        Mes amies sont tamoul et ce quartier a beacoup des tamouls et des
+                        magasins tamoul. Pour moi, c'etait très interéssant de voir cette
+                        culture le plus différent. <p></p></div>
+                </div>
+                <div id="11" class="post">
+                    <div class="blog-header"><h2>1.10.18.: Deuxième semaine</h2></div>
+                    <div class="blog-post"><p><img class="blog-image" src="/assets/img/2018-10-01/IMG_20181001_124726.jpg">
+                        </p>
+                    </div>
+                </div>
+                <div id="10" class="post">
+                    <div class="blog-header"><h2>30.9.18.: Voir la ville</h2></div>
+                    <div class="blog-post"><p>J'ai
+                            commencé à jouer Pokémon Go. En suisse je vis dans une petite village
+                            et c'est pas intéressant parce que il n'y a rien. Mais à Paris, il y a
+                            beacoup des pokémons et pokestops. Et aussi c'est très bon pour voir la
+                            ville. <br><i class="ts">13:34</i>J'ai mangé chez <a href="http://www.fiveguys.com/"
+                                                                                 target="_blanc">'Five Guys'</a>. C'est
+                            un
+                            restaurant très américain et je l'aime. Pour moi, le burger - qui était délicieux - était
+                            trop.
+                            <img class="blog-image" src="/assets/img/2018-09-30/fourguys.jpg"> <br><i class="ts">14:06</i>Maintenant
+                            je suis en train de attendre pour mes amis parce que nous voulons faire
+                            un tour avec le bateau sur la saine. Mais elles ont de retard. Où est
+                            ce que est la ponctuellement des Suisses ?? <br><i class="ts">14:42</i>Devant
+                            le tour nous devrions aller dans un shop d'Apple pour acheter un
+                            nouveau cable pour charger les iPhones parce que les filles ne peuvent
+                            pas survivre sans leur smartphone. </p></div>
+                </div>
+                <div id="8" class="post">
+                    <div class="blog-header"><h2>29.9.18.: Shopping</h2></div>
+                    <div class="blog-post"><p>C'est
+                            le weekend alors il faut faire des courses. Nous sommes étés dans
+                            beaucoup des magasins et c'est très bizarre de voir tous les articles
+                            inutile. Mais je pense que s'il y a quelqu'un qui l'achete, c'est permis
+                            d'exister. Moi, j'ai acheté une bouteille de chilly et je suis heureux.
+                            Pour la faim, nous avons eu de la nourriture asiatique et c'était très
+                            délicieux. <img class="blog-image" src="/assets/img/2018-09-29/IMG_20180929_133859.jpg"> <br>Après
+                            le repas nous continuions le shopping. Un professeur de notre école
+                            nous avons dit q'il y a un magasin pour les vêtements qui s'appelle
+                            "Uniqlo" et que ce n'est pas cher. Mais je pense que beaucoup de gens le
+                            sait parce que c'était débordait. </p></div>
+                </div>
+                <div id="7" class="post">
+                    <div class="blog-header"><h2>28.9.18.: Tour Eiffel</h2></div>
+                    <div class="blog-post"><p>C'est
+                            vendredi alors le temps pour faire de la fête. Mais d'abord, c'est de
+                            la classe le matin. Après, moi et quelques autres étudiants avons mangé
+                            de la pizza <img class="blog-image" src="/assets/img/2018-09-28/IMG_20180928_130737.jpg"> <br><i
+                                    class="ts">15:45</i>Nous
+                            sommes sur la tour Eiffel et c'est magnifique ! Il y a un peu beacoup
+                            des touristes mais j'aime la vue. Et aussi j'ai pris beacoup des images
+                            de mes copains. </p></div>
+                </div>
+                <div id="6" class="post">
+                    <div class="blog-header"><h2>27.9.18</h2></div>
+                    <div class="blog-post"><p>Aujourd'hui j'ai choisi la cuisine asiatique et j'ai mangé des nouilles de
+                            porc <img class="blog-image" src="/assets/img/2018-09-27/IMG_20180927_123529.jpg"> <br><i
+                                    class="ts">17:52</i>Avec
+                            quelques autres étudiants Suisse de la même école j'ai vais voir la
+                            ville. Nous sommes allés au Galerie Lafayette. Si vous voulez faire cela
+                            aussi, assurez-vous de prendre suffisamment de temps - nous voulions
+                            juste aller à la terrasse au 7ème étage, mais nous avons déjà échoué au
+                            3ème étage </p></div>
+                </div>
+                <div id="5" class="post">
+                    <div class="blog-header"><h2>26.9.18</h2></div>
+                    <div class="blog-post"><p>Aujourd'hui j'ai mangé un "Frenchie Burger" (avec camembert) <img
+                                    class="blog-image" src="/assets/img/2018-09-26/IMG_20180926_123827.jpg"></p>
+                        <p class="image-description">Ce Burger était très très bon. Ne pas le meilleur mais prêt</p> Je
+                        ne
+                        sais pas le nom de ce restaurant mais il se trouve prêt d'une rue vivant et c'est très
+                        intéressant
+                        regarder les gents.<br><br><i class="ts">18:20</i>Avec
+                        des autres étudiants suisse je suis allé voir la sacré cœur - et oui,
+                        je sais que c'est important de faire attention a mon sac à dos. C'était
+                        très jolie <img class="blog-image" src="/assets/img/2018-09-26/DSCF3881_Lredit.jpg"> <img
+                                class="blog-image" src="/assets/img/2018-09-26/DSCF3894_Lredit.jpg">
+                        <p></p></div>
+                </div>
+                <div id="4" class="post">
+                    <div class="blog-header"><h2>25.9.18.: Dans le frigo qui s'appelle Paris</h2></div>
+                    <div class="blog-post"><p><i class="ts">10:30</i>C'est l'heure pour faire une petite récréation.
+                            Aujourd'hui c'est très très froid à Paris<br><i class="ts">12:20</i>Aujourd'hui,
+                            j'ai choisi un restaurant que s'appelle "Richer". Je pense que, si je
+                            suis dans une ville plus grande je vais manger chez les lieux
+                            différentes. Peut-être je veux faire un page où je vais écrire de toute
+                            je mange. Alors l'entrée est arrivée, à bientôt. <img class="blog-image"
+                                                                                  src="/assets/img/2018-09-25/richer-1.jpg">
+                        </p>
+                        <p class="image-description">C'était très bien mais ce n'était pas assez</p>
+                        <p></p></div>
+                </div>
+                <div id="3" class="post">
+                    <div class="blog-header"><h2>24.9.: Le premier jour</h2></div>
+                    <div class="blog-post"><p>C'est
+                            mon premier jour à l'ecole. Maintenant je suis sur le métro pour Opéra
+                            et après pour école suisse. Seulement pendant mon 1 minute marche pour
+                            la métro c'était très dur de ne prendre pas mon caméra de mon sac à dos.<br><i
+                                    class="ts">08:25</i>J'ai trouvé des autres étudiants de la même école, aussi suisse.
+                            Quelle bonne chance! <br> <i style="color: grey; font-size: bigger">10:35</i>Un
+                            petit recreation pour boire du thé et parle avec des autres étudiants.
+                            J'ai un classe très cool et je pense que nous sommes dans le même niveau
+                            alors j'espère que nos allons apprendre le français très bien très
+                            rapidement. À plus tard<br><br>Pour le déjeuner j'ai mangé chez KFC
+                            parce que ça n'existe pas en suisse. Aussi, j'ai pris des photos - je
+                            déjà aime les rues parisiennes<br><i class="ts">17:40</i>Je suis retourné à la maison en
+                            foot
+                            pour voir la ville et prendre les photos: <img class="blog-image"
+                                                                           src="/assets/img/2018-09-24/DSCF3527_Lredit.jpg">
+                            et
+                            aussi <img class="blog-image" src="/assets/img/2018-09-24/DSCF3476_Lredit.jpg"> . </p></div>
+                </div>
+                <div id="2" class="post">
+                    <div class="blog-header"><h2>23.9.: Le départ</h2></div>
+                    <div class="blog-post"><p>C'est
+                            5 heures et mon alarme sonne. Je me lève avec 4 heures de sommeil.
+                            J'emballe mes dernière choses, mange un omelette et me brosse les dents.
+                            À 6 heures je pars, mais bien sûr j'ai oublié quelque chose, alors je
+                            retourne, l' enroule et pars une autre fois pour le gare. <br>À la gare j'ai un question
+                            très
+                            grande : qui voyage le dimanche à 6 heures ? C'est trop tôt!<br><br>Je
+                            prends le bus pour aller à Paris et au notre premier stop, à Mulhouse,
+                            il y a "les Mulhousiennes", un cours par la ville. Alors ils ferment les
+                            rues en avence. Très bien pour conduir par la ville - N'EST PAS! <br> Mais heureusement nous
+                            avons un très bon conducteur .<br><i style="color: grey; font-size: bigger">14:12</i> 4
+                            heures
+                            de plus. Je suis sur le bus de Strasbourg à Paris. Gens sont sur leur portables, regarder
+                            des
+                            filmes ou ils dorment. <br><i class="ts">15:05</i>Un 10 minute pause pour sortir de la
+                            circulation. Et acheter des sandwichs et boissons.<br><br><i class="ts">19:14</i>Nous
+                            sommes arrivés, seulement une heure en retard. Je vais au gare de Lyon
+                            poure prendre un Taxi si la famille ou je vais vivre les trois semaines
+                            prochaines vivent à environ de 5km du gare de lyon. Mais, parce que je
+                            suis en France, beacoup des Taxis sont on grève. Mais j'ai trouvé un
+                            homme avec un "Moto Taxi" très gentils. Alors nous avons faites "Fast
+                            and Furious - Paris edition".<br>Maintenant je suis dans ma nuveau chambre et c'est très
+                            jolie.<br>Bonne nuit. </p></div>
+                </div>
             </div>
         </div>
-        <div class="main-blog"></div>
+
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+            <div class="sidebar-module">
+                <h4>Archives</h4>
+                <ol class="list-unstyled">
+                    <li><a href="#introduction">Sur ce Blog</a></li>
+                    <li><a href="#22">12.10.18.: Mon dernier jour</a></li>
+                    <li><a href="#21">11.10.18</a></li>
+                    <li><a href="#20">10.10.18</a></li>
+                    <li><a href="#19">9.10.18.: Google Pixel 3</a></li>
+                    <li><a href="#18">8.10.18.: Troisième et dernière semaine</a></li>
+                    <li><a href="#17">7.10.18</a></li>
+                    <li><a href="#16">6.10.18.: Les trottinettes et la nuit blanche</a></li>
+                    <li><a href="#15">5.10.18</a></li>
+                    <li><a href="#14">4.10.18</a></li>
+                    <li><a href="#13">3.10.18</a></li>
+                    <li><a href="#12">2.10.18</a></li>
+                    <li><a href="#11">1.10.18.: Deuxième semaine</a></li>
+                    <li><a href="#10">30.9.18.: Voir la ville</a></li>
+                    <li><a href="#8">29.9.18.: Shopping</a></li>
+                    <li><a href="#7">28.9.18.: Tour Eiffel</a></li>
+                    <li><a href="#6">27.9.18</a></li>
+                    <li><a href="#5">26.9.18</a></li>
+                    <li><a href="#4">25.9.18.: Dans le frigo qui s'appelle Paris</a></li>
+                    <li><a href="#3">24.9.: Le premier jour</a></li>
+                    <li><a href="#2">23.9.: Le départ</a></li>
+                </ol>
+            </div>
+        </div><!-- /.blog-sidebar -->
     </div>
-
-    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-        <div class="sidebar-module">
-            <h4>Archives</h4>
-            <ol class="list-unstyled">
-                <li><a href="#introduction">Sur ce Blog</a></li>
-
-            </ol>
-        </div>
-    </div><!-- /.blog-sidebar -->
-</div>
 {% endblock %}
