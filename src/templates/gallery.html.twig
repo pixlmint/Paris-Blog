@@ -10,7 +10,7 @@
     <div class="col-sm-4">
         <div class='col-sm-3 blog-sidebar sidebar-module'>
             {% for page in pages %}
-                <a href="/gallery/{{ page }}">{{ date(page)|date('d.m.Y') }}</a>
+                <a href="/gallery?p={{ page }}">{{ date(page)|date('d.m.Y') }}</a>
             {% endfor %}
         </div>
     </div>

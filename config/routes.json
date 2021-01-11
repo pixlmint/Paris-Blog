@@ -1,0 +1,12 @@
+[
+    {
+        "route": "/",
+        "controller": "Blog\\Controllers\\BlogController",
+        "function": "index"
+    },
+    {
+        "route": "/gallery",
+        "controller": "Blog\\Controllers\\GalleryController",
+        "function": "index"
+    }
+]
