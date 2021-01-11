@@ -2,4 +2,3 @@ Content/img/*
 bin/*
 composer-setup.php
 vendor/*
-composer.lock
