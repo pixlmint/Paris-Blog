@@ -1,12 +1,16 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    RewriteRule ^(src|.vscode|node_modules|CHANGELOG\.md|users.json|composer\.(json|lock|phar))(/|$) index.php
+    RewriteRule ^(src|.vscode|content|node_modules|CHANGELOG\.md|.secret|users.json|composer\.(json|lock|phar))(/|$) index.php
     # Enable URL rewriting
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule .? index.php [L]
 </IfModule>
+
+<FilesMatch "\.(ico|jpg|jpeg|gif|png|pdf|mp3|mp4|html|css|js)$">
+    Header set Cache-Control "public, max-age=31536000, no-transform"
+</FilesMatch>
 
 # Prevent file browsing
 Options -Indexes -MultiViews
