@@ -1,12 +1,12 @@
 [
     {
         "route": "/",
-        "controller": "Blog\\Controllers\\BlogController",
+        "controller": "App\\Controllers\\BlogController",
         "function": "index"
     },
     {
         "route": "/gallery",
-        "controller": "Blog\\Controllers\\GalleryController",
+        "controller": "App\\Controllers\\GalleryController",
         "function": "index"
     }
 ]

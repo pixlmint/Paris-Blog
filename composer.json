@@ -1,10 +1,10 @@
 {
     "require":{
-        "twig/twig": "^3.0"
+        "christiangroeber/nacho": "0.15"
     },
     "autoload": {
         "psr-4": {
-            "Blog\\": "src/"
+            "App\\": "src/"
         }
     }
 }

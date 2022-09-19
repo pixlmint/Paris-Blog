@@ -2,9 +2,8 @@ version: "3"
 
 services:
     php:
-        build:
-            context: .
-            dockerfile: Dockerfile
+        image: christiangroeber/php-server:7.4.1
+        container_name: paris
         ports:
             - '92:80'
         volumes:

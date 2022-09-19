@@ -1,5 +1,7 @@
 <?php
-namespace Blog\Controllers;
+namespace App\Controllers;
+
+use Nacho\Controllers\AbstractController;
 
 class BlogController extends AbstractController
 {

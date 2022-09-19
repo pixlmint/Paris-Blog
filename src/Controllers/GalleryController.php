@@ -1,23 +1,23 @@
 <?php
 
 
-namespace Blog\Controllers;
+namespace App\Controllers;
 
 
-use Blog\Blog;
-use Blog\Helpers\Request;
+use Nacho\Controllers\AbstractController;
+use Nacho\Nacho;
 
 class GalleryController extends AbstractController
 {
     private string $images;
 
-    public function __construct(Blog $blog)
+    public function __construct(Nacho $nacho)
     {
-        parent::__construct($blog);
+        parent::__construct($nacho);
         $this->images = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/';
     }
 
-    public function index(Request $request): string
+    public function index(): string
     {
         $imageDirs = [];
         foreach (scandir($this->images) as $imgDir) {
